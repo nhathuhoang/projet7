@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.proxibanqueSI.org/AccountOperation/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AccountOperation" targetNamespace="http://www.proxibanqueSI.org/AccountOperation/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.proxibanqueSI.org/AccountOperation/">
+      <xsd:element name="CreateOperation">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element maxOccurs="1" minOccurs="1" name="Operation" type="tns:OperationType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateOperationResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetOperationByIdClient">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="1" minOccurs="1" name="idClient" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetOperationByIdClientResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element maxOccurs="unbounded" minOccurs="0" name="Operation" type="tns:OperationType"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="OperationType">
+      	<xsd:sequence>
+      		<xsd:element maxOccurs="1" minOccurs="0" name="IdClient" type="xsd:int"/>
+      		<xsd:element maxOccurs="1" minOccurs="0" name="Date" type="xsd:date"/>
+      		<xsd:element maxOccurs="1" minOccurs="0" name="Type" type="xsd:string"/>
+      		<xsd:element maxOccurs="1" minOccurs="0" name="Montant" type="xsd:double"/>
+      		<xsd:element maxOccurs="1" minOccurs="0" name="IdCompteDepart" type="xsd:int"/>
+      		<xsd:element maxOccurs="1" minOccurs="0" name="IdCompteCible" type="xsd:int"/>
+      		<xsd:element maxOccurs="1" minOccurs="0" name="Status" type="xsd:string"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="NewOperation">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="in" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NewOperationResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="out" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateOperationRequest">
+    <wsdl:part element="tns:CreateOperation" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="CreateOperationResponse">
+    <wsdl:part element="tns:CreateOperationResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetOperationByIdClientRequest">
+  	<wsdl:part element="tns:GetOperationByIdClient" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetOperationByIdClientResponse">
+  	<wsdl:part element="tns:GetOperationByIdClientResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="NewOperationRequest">
+  	<wsdl:part element="tns:NewOperation" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="NewOperationResponse">
+  	<wsdl:part element="tns:NewOperationResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="AccountOperation">
+    <wsdl:operation name="CreateOperation">
+      <wsdl:input message="tns:CreateOperationRequest"/>
+      <wsdl:output message="tns:CreateOperationResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetOperationByIdClient">
+    	<wsdl:input message="tns:GetOperationByIdClientRequest"/>
+    	<wsdl:output message="tns:GetOperationByIdClientResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccountOperationSOAP" type="tns:AccountOperation">
+  	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  	<wsdl:operation name="CreateOperation">
+  		<soap:operation soapAction="http://www.proxibanqueSI.org/AccountOperation/CreateOperation"/>
+  		<wsdl:input>
+  			<soap:body use="literal"/>
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal"/>
+  		</wsdl:output>
+  	</wsdl:operation>
+  	<wsdl:operation name="GetOperationByIdClient">
+  		<soap:operation soapAction="http://www.proxibanqueSI.org/AccountOperation/GetOperationByIdClient"/>
+  		<wsdl:input>
+  			<soap:body use="literal"/>
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal"/>
+  		</wsdl:output>
+  	</wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountOperation">
+    <wsdl:port binding="tns:AccountOperationSOAP" name="AccountOperationSOAP">
+      <soap:address location="http://localhost:8080/proxibanqueSIv3/services/AccountOperationSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
